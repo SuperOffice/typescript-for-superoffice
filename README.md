@@ -105,18 +105,29 @@ Example workflow:
 1. Open a new folder/project in vscode
 2. Add npm-package with command 'npm i @superoffice/webapi'
 3. Create new file, with file-extension .ts
-4. Add import-statement at the top of the file: 'import * as RTL from '@superoffice/webapi';'
+4. Add import-statement at the top of the file:
+
+```typescript
+import { WebApi } from "@superoffice/webapi";
+const soApi = new WebApi();
+```
+
 5. Write your script
 6. Copy your script and paste it into SuperOffice, without the import-statement in point 4.
 7. Execute script in SuperOffice and see the result
 
-We are currently discussing the possibility to have a vscode extension that connects to a tenant and have the methods to download/upload scripts. This will simplify the workflow for developers wanting to work in vscode, but we have (for now) only a POC for this.
+We are currently discussing the possibility to have a vscode extension that connects to a tenant and have the methods to download/upload scripts. This will simplify the workflow for developers wanting to work in vscode, but we have (for now) only a [POC](https://github.com/SuperOffice/language-tools) for this.
 
 We also have a new endpoint in our API which allows you to pass inn a script without having it stored inside of SuperOffice:
 <https://docs.superoffice.com/en/api/reference/restful/agent/CRMScript_Agent/v1CRMScriptAgent_ExecuteScriptByString.html>
 It is still undecided if this endpoint will remain open when JSFSO is in production, but for testing-purposes it might come in handy.
 
 ## FAQ
+
+### How to get access to writing `TypeScript for SuperOffice`
+
+To get access to write `TypeScript for SuperOffice` on a tenant you need to get a specific tag set on your tenant. This is only available in SOD, as the project is still in the early stages.
+To get this tag set you can send an email to email:appdev@superoffice.com with information about who you are and which tenant you want to enable this for.
 
 ### SearchEngine
 
