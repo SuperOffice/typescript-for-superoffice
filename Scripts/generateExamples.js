@@ -2,14 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var path = require("path");
-var rtlPath = "import { SO } from '../../../Helpers/webApiHelper';";
+var rtlPath = "import { soApi } from '../../../Helpers/webApiHelper';";
 var contextPath = "import { context } from '../../../Helpers/logHelper';";
 //import { SO } from '../../../Helpers/webApiHelper';
 var importStatements = "\n".concat(rtlPath, "\n").concat(contextPath);
 function generateCreateEntityFile(entityConfig) {
     var variableDeclarations = entityConfig.attributes.map(function (attr) { return "const ".concat(attr.name, " = \"").concat(attr.value, "\";"); }).join('\n');
-    var agentDeclaration = "const agent = SO.get".concat(entityConfig.entityName, "Agent();");
-    //const agentDeclaration = `const agent = new SO.${entityConfig.entityName}Agent();`;
+    var agentDeclaration = "const agent = soApi.get".concat(entityConfig.entityName, "Agent();");
     var entityCreation = "let entity = await agent.createDefault".concat(entityConfig.entityName, "EntityAsync();");
     var attributeAssignments = entityConfig.attributes.map(function (attr) { return "entity.".concat(attr.name, " = ").concat(attr.name, ";"); }).join('\n');
     var entitySave = "entity = await agent.save".concat(entityConfig.entityName, "EntityAsync(entity);");
@@ -20,8 +19,7 @@ function generateCreateEntityFile(entityConfig) {
 function generateEditEntityFile(entityConfig) {
     var variableDeclarations = entityConfig.attributes.map(function (attr) { return "const ".concat(attr.name, " = \"").concat(attr.value, "\";"); }).join('\n');
     var entityIdDeclaration = "const entityId = 2;";
-    var agentDeclaration = "const agent = SO.get".concat(entityConfig.entityName, "Agent();");
-    //const agentDeclaration = `const agent = new RTL.${entityConfig.entityName}Agent();`;
+    var agentDeclaration = "const agent = soApi.get".concat(entityConfig.entityName, "Agent();");
     var entityGet = "let entity = await agent.get".concat(entityConfig.entityName, "EntityAsync(entityId);");
     var attributeAssignments = entityConfig.attributes.map(function (attr) { return "entity.".concat(attr.name, " = ").concat(attr.name, ";"); }).join('\n');
     var entitySave = "entity = await agent.save".concat(entityConfig.entityName, "EntityAsync(entity);");
@@ -31,7 +29,7 @@ function generateEditEntityFile(entityConfig) {
 }
 function generateDeleteEntityFile(entityConfig) {
     var entityIdDeclaration = "const entityId = 2;";
-    var agentDeclaration = "const agent = SO.get".concat(entityConfig.entityName, "Agent();");
+    var agentDeclaration = "const agent = soApi.get".concat(entityConfig.entityName, "Agent();");
     //const agentDeclaration = `const agent = new RTL.${entityConfig.entityName}Agent();`;
     var entityDelete = "await agent.delete".concat(entityConfig.entityName, "EntityAsync(entityId);");
     var resultAssignment = "context.result.body = 'EntityId ' + entityId.toString() + ' deleted';";

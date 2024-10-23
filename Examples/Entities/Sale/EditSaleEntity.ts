@@ -1,12 +1,12 @@
 
-import { SO } from '../../../Helpers/webApiHelper';
+import { soApi } from '../../../Helpers/webApiHelper';
 import { context } from '../../../Helpers/logHelper';
     
 //Variables
 const heading = "NewHeading";
 const entityId = 2;
 
-const agent = SO.getSaleAgent();
+const agent = soApi.getSaleAgent();
 let entity = await agent.getSaleEntityAsync(entityId);
 entity.heading = heading;
 entity = await agent.saveSaleEntityAsync(entity);

@@ -1,4 +1,4 @@
-# CRMScript 2.0 Online Architecture
+# `TypeScript for SuperOffice` Online Architecture
 
 This document describes the architecture of the CRMScript 2.0 online environment. It is intended for developers who want to understand how the online environment works.
 
@@ -6,9 +6,9 @@ This document describes the architecture of the CRMScript 2.0 online environment
 
 ![Architecture overview](./assets/images/online-architecture.png)
 
-1. Upon execution of a CRMScript2 by a tenant, an HTTP request is dispatched to the CRMScript2 Service within the Kubernetes environment.
+1. Upon execution of a `TypeScript for SuperOffice` by a tenant, an HTTP request is dispatched to the `TypeScript for SuperOffice` Service within the Kubernetes environment.
 
-2. YARP determines the version currently in use by the tenant. Subsequently, the request is routed to a Service that operates the corresponding version of the RTE (CRMScript2 Run-Time Environment).
+2. YARP determines the version currently in use by the tenant. Subsequently, the request is routed to a Service that operates the corresponding version of the RTE (`TypeScript for SuperOffice` Run-Time Environment).
 
 3. The targeted container initiates a node application. This application leverages the Node Cluster module to efficiently distribute incoming requests to an appropriate worker.
 

@@ -7,7 +7,7 @@ interface EntityConfig {
 }
 
 
-const rtlPath = "import { SO } from '../../../Helpers/webApiHelper';";
+const rtlPath = "import { soApi } from '../../../Helpers/webApiHelper';";
 const contextPath = "import { context } from '../../../Helpers/logHelper';";
 //import { SO } from '../../../Helpers/webApiHelper';
 
@@ -18,8 +18,7 @@ ${contextPath}`;
 function generateCreateEntityFile(entityConfig: EntityConfig): string {
     const variableDeclarations = entityConfig.attributes.map(attr => `const ${attr.name} = "${attr.value}";`).join('\n');
 
-    const agentDeclaration = `const agent = SO.get${entityConfig.entityName}Agent();`;
-    //const agentDeclaration = `const agent = new SO.${entityConfig.entityName}Agent();`;
+    const agentDeclaration = `const agent = soApi.get${entityConfig.entityName}Agent();`;
 
     const entityCreation = `let entity = await agent.createDefault${entityConfig.entityName}EntityAsync();`;
 
@@ -49,8 +48,7 @@ function generateEditEntityFile(entityConfig: EntityConfig): string {
 
     const entityIdDeclaration = `const entityId = 2;`;
 
-    const agentDeclaration = `const agent = SO.get${entityConfig.entityName}Agent();`;
-    //const agentDeclaration = `const agent = new RTL.${entityConfig.entityName}Agent();`;
+    const agentDeclaration = `const agent = soApi.get${entityConfig.entityName}Agent();`;
 
     const entityGet = `let entity = await agent.get${entityConfig.entityName}EntityAsync(entityId);`;
 
@@ -79,7 +77,7 @@ ${resultAssignment}
 function generateDeleteEntityFile(entityConfig: EntityConfig): string {
     const entityIdDeclaration = `const entityId = 2;`;
 
-    const agentDeclaration = `const agent = SO.get${entityConfig.entityName}Agent();`;
+    const agentDeclaration = `const agent = soApi.get${entityConfig.entityName}Agent();`;
     //const agentDeclaration = `const agent = new RTL.${entityConfig.entityName}Agent();`;
 
     const entityDelete = `await agent.delete${entityConfig.entityName}EntityAsync(entityId);`;
