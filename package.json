@@ -1,8 +1,8 @@
 {
   "devDependencies": {
-    "@superoffice/webapi": "^10.2.9",
+    "@superoffice/webapi": "^10.3.10",
     "@types/node": "^20.6.5",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2"  
   },
   "scripts": {
     "compileScripts": "tsc Scripts/updateReadme.ts && tsc Scripts/generateExamples.ts",
