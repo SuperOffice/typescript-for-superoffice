@@ -21,6 +21,7 @@ class CgiVariables {
 }
 
 class EventData {
+  type: number;
   inputValues: Record<string, any>;
   blockExecution: boolean;
   navigateTo: string;
@@ -31,8 +32,11 @@ class EventData {
   exception: string;
   cgiVariables: CgiVariables;
   cgiContent: string;
+  headers: Record<string, any>;
+  traceExecution: boolean;
 
   constructor() {
+    this.type = 0; // default type
     this.inputValues = {};
     this.blockExecution = false;
     this.navigateTo = "";
@@ -43,21 +47,37 @@ class EventData {
     this.exception = "";
     this.cgiVariables = new CgiVariables();
     this.cgiContent = "";
+    this.headers = {}; // Initialize headers
+    this.traceExecution = false; // default traceExecution
+  }
+}
+
+class Variables {
+  activeUser: string;
+  developmentMode: string;
+  includeId: string;
+
+  constructor() {
+    this.activeUser = "";
+    this.developmentMode = "";
+    this.includeId = "";
   }
 }
 
 class Context {
+  classes: Record<string, any>;
   result: Result;
   vars: Record<string, any>;
   funcs: Record<string, Function>;
-  variables: Record<string, any>;
+  variables: Variables;
   eventData: EventData;
 
   constructor() {
+    this.classes = {};
     this.result = new Result();
     this.vars = {};
     this.funcs = {};
-    this.variables = {};
+    this.variables = new Variables();
     this.eventData = new EventData();
   }
 }
