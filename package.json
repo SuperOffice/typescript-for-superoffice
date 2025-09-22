@@ -1,13 +1,13 @@
 {
-  "devDependencies": {
-    "@superoffice/webapi": "^10.3.10",
-    "@types/node": "^20.6.5",
-    "typescript": "^5.2.2"  
-  },
-  "scripts": {
-    "compileScripts": "tsc Scripts/updateReadme.ts && tsc Scripts/generateExamples.ts",
-    "generateExamples": "tsc Scripts/generateExamples.ts && node Scripts/generateExamples.js",
-    "updateReadme": "tsc Scripts/updateReadme.ts && node Scripts/updateReadme.js",
-    "setup": "npm install typescript --save-dev && npm install && node Scripts/generateExtensionMethods.js && npx tsc"
-  }
+    "devDependencies": {
+        "@superoffice/webapi": "^11.3.13",
+        "@types/node": "^20.6.5",
+        "typescript": "^5.2.2"
+    },
+    "scripts": {
+        "compileScripts": "tsc Scripts/updateReadme.ts && tsc Scripts/generateExamples.ts",
+        "generateExamples": "tsc Scripts/generateExamples.ts && node Scripts/generateExamples.js",
+        "updateReadme": "tsc Scripts/updateReadme.ts && node Scripts/updateReadme.js",
+        "setup": "npm install typescript --save-dev && npm install && node Scripts/generateExtensionMethods.js && npx tsc"
+    }
 }
