@@ -30,7 +30,7 @@ Lets use CreateContactEntity.ts as an example:
 
 import { soApi } from '../../../Helpers/webApiHelper';
 import { context } from '../../../Helpers/logHelper';
-    
+
 //Variables
 const name = "NewName";
 
@@ -47,7 +47,7 @@ And this is what you copy-paste into your SuperOffice-Script (without the lines 
 <!-- START:.crmscript -->
 ```typescript
 
-    
+
 //Variables
 const name = "NewName";
 
@@ -81,7 +81,7 @@ context.result.body = JSON.stringify(context);
 
 ## #includes
 
-Yes, you can still #include other files similar to how it was done in CRMScript. Please see ./Examples/Includes for an example.
+Yes, you can still #include other files similar to how it was done in CRMScript, but the syntax is now `///<include includeId="">`. Please see [sample](./Examples/Includes/HTMLPage-example.crmscript).
 
 ## Do i need to clone this repo to create scripts
 
