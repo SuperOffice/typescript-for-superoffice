@@ -1,6 +1,6 @@
 %EJSCRIPT_START%
 <%
-///include ts-lib
+///<include includeId="ts-lib">
 function print(value){
  	context.result.body += value;
 };
@@ -22,4 +22,4 @@ print(myIncludeVar);
 %>
 </body>
 </html>
-%EJSCRIPT_END% 
+%EJSCRIPT_END%
