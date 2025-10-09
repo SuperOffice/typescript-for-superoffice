@@ -1,0 +1,90 @@
+
+%EJSCRIPT_START%
+<%
+
+// Courtesy of copilot
+function decodeValue(input: string): any {
+  const match = input.match(/^\[(\w+):(.*)\]$/);
+  if (!match) return input; // Treat as plain string if not encoded
+
+  const [, moniker, value] = match;
+
+  switch (moniker) {
+    case 'B':
+      return value; // Binary: return as-is or decode if needed
+    case 'D':
+      return new Date(value.replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$2/$1/$3')); // DD.MM.YYYY → MM/DD/YYYY
+    case 'DT':
+      return new Date(value); // DateTime: assumes valid format
+    case 'F':
+      return parseFloat(value); // Float/Decimal
+    case 'I':
+      return parseInt(value, 10); // Integer
+    case 'A':
+      return value.split(',').map(v => parseInt(v, 10)); // Int Array
+    case 'M':
+      return parseFloat(value); // Money as float
+    case 'T':
+      return value; // Time: return as string or parse to Date if needed
+    case 'TS':
+      return parseInt(value, 10); // TimeSpan in milliseconds or seconds
+    default:
+      return input; // Unknown moniker: treat as string
+  }
+}
+
+
+const agent = soApi.getArchiveAgent();
+
+const jsDocumentId: string = "36"; // This is the external_document_id for the javascript
+const cssDocumentId: string = "37"; // This is the external_document_id for the css
+
+let jsContent: string = "";
+let cssContent: string = "";
+
+var result = await agent.getArchiveListByColumns2Async(
+    "dynamic",                                  // ProviderName
+    "external_document.id,external_document.attachment_id",                     // Columns
+    "external_document.id",                         // SortOrder
+    "external_document.id oneOf (" + jsDocumentId + "," + cssDocumentId + ")",// Restriction
+    "",                                         // Entities
+    0,                                          // Page
+    10                                          // PageSize
+);
+
+for(let i = 0; i < result.length; i++){
+  const aAgent = soApi.getTicketAgent();
+  const extDocumentId = decodeValue(result[i].columnData["external_document.id"].displayValue);
+  const attachmentId = decodeValue(result[i].columnData["external_document.attachment_id"].displayValue);
+  context.result.body += extDocumentId + ", " + jsDocumentId;
+
+  const attachment = await aAgent.getAttachmentStreamAsync(Number(attachmentId));
+  if (typeof attachment === "string") {
+    context.result.body += attachment;
+  }
+  else{
+    var enc = new TextDecoder("utf-8");
+    if(extDocumentId == jsDocumentId){
+      jsContent = enc.decode(attachment);
+    }
+    else if(extDocumentId == cssDocumentId){
+       cssContent = enc.decode(attachment);
+     }
+  }
+}
+%>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+    <script type="module"><% context.result.body += jsContent; %></script>
+    <style><% context.result.body += cssContent; %></style>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
+%EJSCRIPT_END%
