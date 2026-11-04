@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@superoffice/webapi": "^11.4.1157",
-    "vue": "^3.5.22",
+    "vue": "^3.5.44",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
